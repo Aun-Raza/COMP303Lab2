@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8" />
+  <title>Program</title>
+  <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"
+  />
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-light fixed-top bg-dark">
+  <div class="container-fluid">
+    <span class="navbar-brand text-light">StudentDB | Program</span>
+  </div>
+</nav>
+<div class="container mt-4">
+  <br />
+  <br />
+  <h2 class="text-center mt-4 display-4" th:text="|Welcome, ${student.firstName} ${student.lastName}|" ></h2>
+  <!-- Program Form -->
+  <form id="programForm" class="border rounded p-3" th:action="@{/insertProgram}" th:object="${program}" method="post">
+    <h2 class="text-center mt-4 display-4">Program</h2>
+    <div class="form-group w-25 mx-auto">
+      <input type="hidden" name="studentId" th:value="${student.studentId}" />
+      <label for="programCode" class="m-1">Program Code</label>
+      <input
+              type="number"
+              class="form-control"
+              id="programCode"
+              name="programCode"
+              th:field="*{programCode}"
+              placeholder="513211"
+      />
+      <div th:if="${#fields.hasErrors('programCode')}" th:errors="*{programCode}" class="text-danger"></div>
+    </div>
+    <div class="form-group w-25 mx-auto">
+      <label for="programName" class="m-1">Program Name</label>
+      <input
+              class="form-control"
+              id="programName"
+              name="programName"
+              th:field="*{programName}"
+              placeholder="Software Engineering Technology"
+      />
+      <div th:if="${#fields.hasErrors('programName')}" th:errors="*{programName}" class="text-danger"></div>
+    </div>
+    <div class="form-group w-25 mx-auto">
+      <label for="duration" class="m-1"
+      >Program Duration (semesters)</label
+      >
+      <input
+              class="form-control"
+              type="number"
+              id="duration"
+              name="duration"
+              th:field="*{duration}"
+              placeholder="6"
+      />
+      <div th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="text-danger"></div>
+    </div>
+    <div class="form-group w-25 mx-auto">
+      <label for="fee" class="m-1">Program Fee</label>
+      <input class="form-control"
+             id="fee"
+             name="fee"
+             th:field="*{fee}"
+             placeholder="12345.67" />
+      <div th:if="${#fields.hasErrors('fee')}" th:errors="*{fee}" class="text-danger"></div>
+      <button class="btn btn-primary mt-2">Enroll</button>
+    </div>
+  </form>
+  <div class="text-center">
+    <h2 class="mt-4 display-4">Profile</h2>
+    <a th:href="@{/editProfile/{id}(id=${student.studentId})}">
+      <button class="btn btn-primary mt-2 btn-lg">Edit Profile</button>
+    </a>
+  </div>
+</div>
+</body>
+</html>
